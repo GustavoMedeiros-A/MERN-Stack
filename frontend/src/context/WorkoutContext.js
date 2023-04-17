@@ -16,6 +16,11 @@ export const workoutsReducer = (state, action) => {
                 // State são os que já existem. O estado atual dos workouts
                 workouts: [action.payload, ...state.workouts]
             }
+        case "DELETE_WORKOUT":
+            return {
+                // Se não for igual ele mantem ele
+                workouts: state.workouts.filter((w) => w._id !== action.payload._id)
+            }
         default:
             return state
     }
