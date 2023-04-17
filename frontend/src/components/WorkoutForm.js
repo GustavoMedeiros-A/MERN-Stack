@@ -1,6 +1,9 @@
 import { useState } from "react"
+import { useWorkoutsContext } from "../hooks/useWorkoutsContext"
 
 const WorkoutForm = () => {
+    // 
+    const {dispatch} = useWorkoutsContext();
     // Create the state of the data
     const [title, setTitle] = useState("")
     const [load, setLoad] = useState("")
@@ -12,7 +15,9 @@ const WorkoutForm = () => {
 
         const workout = { title, load, reps }
 
-        // To post a new data -> with the url that post in the API, stringify the json and 
+        // To post a new data -> with the url that post in the API, stringify the json 
+        // Metodo POST para postar novos dados
+        // Backend workout controller 
         const response = await fetch("/api/workouts", {
             method: "POST",
             body: JSON.stringify(workout),
@@ -31,6 +36,7 @@ const WorkoutForm = () => {
             setReps("")
             setError(null)
             console.log("new workout added", json)
+            dispatch({type: "CREATE_WORKOUT", payload: json})
         }
 
     }
@@ -39,7 +45,7 @@ const WorkoutForm = () => {
         <form className="create" onSubmit={handleSubmit}>
             <h3>Add a New Workout</h3>
 
-            <label>Excersize Title: </label>
+            <label>Excercise Title: </label>
             <input 
                 type="text"
                 onChange={(e) => setTitle(e.target.value)}
