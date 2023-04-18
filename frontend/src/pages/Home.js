@@ -21,7 +21,7 @@ const Home = () => {
         }
 
         fetchWorkouts();
-    }, [])
+    }, [dispatch]) // Quando o dispatch for alterado, o useEffect vai ser executado novamente
 
 
     // Código antes de usarmos o HOOK que criamos (workoutContext)
